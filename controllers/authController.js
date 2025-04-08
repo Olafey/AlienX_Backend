@@ -80,18 +80,24 @@ const signIn = async (req, res) => {
   }
 
   //LOGOUT
-  const logout = async (req, res) => {
-    //TODO: get token from header
-    const { token } = req.body;
-    try {
-      await BlacklistedToken;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+};
 
-  module.exports = {
-    signUp,
-    signIn,
-  };
+const logout = async (req, res) => {
+  //TODO: get token from header
+  const { token } = req.body;
+  try {
+    await BlacklistedToken.create({ token });
+    res.status(200).json({
+      status: "success",
+      message: "Logout Successfully!",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  signUp,
+  signIn,
+  logout,
 };
